@@ -1,0 +1,10 @@
+[Unit]
+Description=Logstash Exporter
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/logstash-exporter {{ logstash_exporter_options }}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

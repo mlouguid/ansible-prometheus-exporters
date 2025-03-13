@@ -1,0 +1,6 @@
+logstash_exporter_version: "0.7.0"
+logstash_exporter_arch: "amd64"
+logstash_exporter_download_url: "https://github.com/alxrem/prometheus-logstash-exporter/releases/download/{{ logstash_exporter_version }}/prometheus-logstash-exporter_{{ logstash_exporter_version }}_linux_{{ logstash_exporter_arch }}"
+logstash_exporter_options: "--web.listen-address=:9198"
+logstash_exporter_state: restarted
+logstash_exporter_enabled: true

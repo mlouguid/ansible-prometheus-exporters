@@ -1,0 +1,42 @@
+---
+- name: Ensure NGINX is installed
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Download NGINX Prometheus Exporter
+  get_url:
+    url: "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.11.0/nginx-prometheus-exporter_0.11.0_linux_amd64.tar.gz"
+    dest: "/tmp/nginx-prometheus-exporter.tar.gz"
+    mode: '0644'
+
+- name: Extract NGINX Prometheus Exporter
+  unarchive:
+    src: "/tmp/nginx-prometheus-exporter.tar.gz"
+    dest: "/usr/local/bin/"
+    remote_src: yes
+
+- name: Ensure NGINX Prometheus Exporter is executable
+  file:
+    path: "/usr/local/bin/nginx-prometheus-exporter"
+    mode: '0755'
+    state: file
+
+- name: Ensure NGINX Prometheus Exporter is executable
+  file:
+    path: "/usr/local/bin/nginx-prometheus-exporter"
+    mode: '0755'
+    state: file
+
+- name: Deploy systemd service for NGINX Prometheus Exporter
+  template:
+    src: "nginx-prometheus-exporter.service.j2"
+    dest: "/etc/systemd/system/nginx-prometheus-exporter.service"
+
+- name: Reload systemd and start the NGINX Prometheus Exporter service
+  systemd:
+    daemon_reload: yes
+    name: nginx-prometheus-exporter
+    state: started
+    enabled: yes

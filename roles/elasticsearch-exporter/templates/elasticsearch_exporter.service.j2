@@ -1,0 +1,16 @@
+[Unit]
+Description=Prometheus Elasticsearch Exporter
+After=network.target
+
+[Service]
+User=prometheus
+ExecStart=/usr/local/bin/elasticsearch_exporter \
+  --es.uri={{ elasticsearch_uri | default("http://localhost:9200") }} \
+  --web.listen-address=:9114 \
+  --es.all \
+  --es.indices \
+  --es.shards
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

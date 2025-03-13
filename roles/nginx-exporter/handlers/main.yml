@@ -1,0 +1,5 @@
+---
+- name: Restart nginx-prometheus-exporter
+  systemd:
+    name: nginx-prometheus-exporter
+    state: restarted

@@ -1,0 +1,12 @@
+[Unit]
+Description=PHP FPM Exporter Service
+After=network.target
+
+[Service]
+User=php-fpm_exporter
+Group=php-fpm_exporter
+Type=simple
+ExecStart={{ php_fpm_exporter_bin_path }} server --phpfpm.scrape-uri "unix://{{ php_fpm_exporter_sock_path }};/status"
+
+[Install]
+WantedBy=multi-user.target

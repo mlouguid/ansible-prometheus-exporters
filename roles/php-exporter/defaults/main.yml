@@ -1,0 +1,4 @@
+php_fpm_exporter_version: "2.2.0"
+php_fpm_exporter_url: "https://github.com/hipages/php-fpm_exporter/releases/download/v{{ php_fpm_exporter_version }}/php-fpm_exporter_{{ php_fpm_exporter_version }}_linux_amd64"
+php_fpm_exporter_bin_path: "/usr/local/bin/php-fpm_exporter"
+php_fpm_exporter_sock_path: "/var/run/php/php8.2-fpm.sock"

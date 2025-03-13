@@ -1,0 +1,47 @@
+- name: Create prometheus user
+  user:
+    name: prometheus
+    system: yes
+    shell: /bin/false
+    home: /var/lib/prometheus
+    create_home: no
+
+- name: Download elasticsearch_exporter
+  get_url:
+    url: "https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v1.6.0/elasticsearch_exporter-1.6.0.linux-amd64.tar.gz"
+    dest: /tmp/elasticsearch_exporter.tar.gz
+    mode: 0644
+
+- name: Create temporary directory
+  file:
+    path: /tmp/elasticsearch_exporter
+    state: directory
+    mode: 0755
+
+- name: Extract elasticsearch_exporter
+  unarchive:
+    src: /tmp/elasticsearch_exporter.tar.gz
+    dest: /tmp
+    remote_src: yes
+
+- name: Move exporter binary to final location
+  copy:
+    src: /tmp/elasticsearch_exporter-1.6.0.linux-amd64/elasticsearch_exporter
+    dest: /usr/local/bin/elasticsearch_exporter
+    mode: 0755
+    remote_src: yes
+
+- name: Create systemd service file
+  template:
+    src: elasticsearch_exporter.service.j2
+    dest: /etc/systemd/system/elasticsearch_exporter.service
+    mode: 0644
+  notify: restart elasticsearch_exporter
+
+
+- name: Enable and start elasticsearch_exporter
+  systemd:
+    name: elasticsearch_exporter
+    enabled: yes
+    state: started
+    daemon_reload: yes
