@@ -1,0 +1,55 @@
+- name: Download MySQL Exporter
+  get_url:
+    url: "{{ mysql_exporter_download_url }}"
+    dest: /tmp/mysqld_exporter.tar.gz
+
+- name: Extract MySQL Exporter binary
+  ansible.builtin.unarchive:
+    src: /tmp/mysqld_exporter.tar.gz
+    dest: /tmp
+    remote_src: yes
+
+- name: Move MySQL Exporter binary to /usr/local/bin
+  copy:
+    src: /tmp/mysqld_exporter-{{ mysql_exporter_version }}.linux-amd64/mysqld_exporter
+    dest: "{{ mysql_exporter_binary_path }}"
+    mode: "0755"
+    remote_src: true
+
+- name: Create MySQL user for exporter
+  mysql_user:
+    name: "{{ mysql_exporter_user }}"
+    password: "{{ mysql_exporter_password }}"
+    host: "localhost"
+    priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT, SLAVE MONITOR, SUPER"
+    state: present
+
+- name: Create .my.cnf for MySQL Exporter
+  template:
+    src: my.cnf.j2
+    dest: "{{ mysql_exporter_cnf_path }}"
+    mode: "0600"
+
+- name: Create MySQL Exporter systemd service
+  template:
+    src: mysqld_exporter.service.j2
+    dest: "{{ mysql_exporter_service_path }}"
+
+- name: Check if systemd is available
+  command: which systemctl
+  register: systemd_check
+
+- name: Reload systemd daemon if systemd is available
+  systemd:
+    daemon_reload: yes
+
+- name: Start MySQL Exporter service
+  systemd:
+    name: mysqld_exporter
+    state: started
+    enabled: yes
+
+- name: Ensure MySQL Exporter is running
+  systemd:
+    name: mysqld_exporter
+    state: started

@@ -1,0 +1,5 @@
+---
+- name: Restart InfluxDB Exporter
+  ansible.builtin.systemd:
+    name: influxdb_exporter
+    state: restarted

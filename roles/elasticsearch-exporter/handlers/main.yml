@@ -1,0 +1,4 @@
+- name: restart elasticsearch_exporter
+  systemd:
+    name: elasticsearch_exporter
+    state: restarted

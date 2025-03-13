@@ -1,0 +1,4 @@
+- name: Restart mysql-prometheus-exporter
+  systemd:
+    name: mysql-exporter
+    state: restarted

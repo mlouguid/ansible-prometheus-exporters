@@ -1,0 +1,17 @@
+- name: Ensure Logstash Exporter binary is downloaded
+  get_url:
+    url: "{{ logstash_exporter_download_url }}"
+    dest: "/usr/local/bin/logstash-exporter"
+    mode: '0755'
+
+- name: Ensure Logstash Exporter service is configured
+  template:
+    src: logstash_exporter.service.j2
+    dest: "/etc/systemd/system/logstash-exporter.service"
+    mode: '0644'
+
+- name: Ensure Logstash Exporter service is started and enabled
+  systemd:
+    name: logstash-exporter
+    state: "{{ logstash_exporter_state }}"
+    enabled: "{{ logstash_exporter_enabled }}"

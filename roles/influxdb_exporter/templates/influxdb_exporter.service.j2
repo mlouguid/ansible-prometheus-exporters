@@ -1,0 +1,14 @@
+[Unit]
+Description=InfluxDB Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User={{ influxdb_exporter_user }}
+Group={{ influxdb_exporter_group }}
+Type=simple
+ExecStart={{ influxdb_exporter_install_dir }}/influxdb_exporter --web.listen-address=":{{ influxdb_exporter_port }}"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,4 @@
+- name: Restart Logstash Exporter
+  systemd:
+    name: logstash-exporter
+    state: restarted

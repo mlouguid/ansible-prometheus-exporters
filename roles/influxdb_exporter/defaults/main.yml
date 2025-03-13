@@ -1,0 +1,6 @@
+---
+influxdb_exporter_user: influxdb_exporter
+influxdb_exporter_group: influxdb_exporter
+influxdb_exporter_download_url: "https://github.com/prometheus/influxdb_exporter/releases/download/v0.12.0/influxdb_exporter-0.12.0.linux-amd64.tar.gz"
+influxdb_exporter_install_dir: /opt/influxdb_exporter
+influxdb_exporter_port: 9122

@@ -1,0 +1,54 @@
+---
+- name: Create influxdb_exporter group
+  ansible.builtin.group:
+    name: "{{ influxdb_exporter_group }}"
+    system: true
+
+- name: Create influxdb_exporter user
+  ansible.builtin.user:
+    name: "{{ influxdb_exporter_user }}"
+    group: "{{ influxdb_exporter_group }}"
+    system: true
+    shell: /sbin/nologin
+    create_home: false
+
+- name: Create InfluxDB Exporter install directory
+  ansible.builtin.file:
+    path: "{{ influxdb_exporter_install_dir }}"
+    state: directory
+    owner: "{{ influxdb_exporter_user }}"
+    group: "{{ influxdb_exporter_group }}"
+    mode: '0755'
+
+- name: Download InfluxDB Exporter
+  ansible.builtin.get_url:
+    url: "{{ influxdb_exporter_download_url }}"
+    dest: "/tmp/influxdb_exporter.tar.gz"
+
+- name: Extract InfluxDB Exporter
+  ansible.builtin.unarchive:
+    src: "/tmp/influxdb_exporter.tar.gz"
+    dest: "{{ influxdb_exporter_install_dir }}"
+    remote_src: true
+    extra_opts:
+      - --strip-components=1
+
+- name: Set ownership of InfluxDB Exporter directory
+  ansible.builtin.file:
+    path: "{{ influxdb_exporter_install_dir }}"
+    state: directory
+    owner: "{{ influxdb_exporter_user }}"
+    group: "{{ influxdb_exporter_group }}"
+    recurse: true
+
+- name: Create systemd service file for InfluxDB Exporter
+  ansible.builtin.template:
+    src: influxdb_exporter.service.j2
+    dest: /etc/systemd/system/influxdb_exporter.service
+  notify: Restart InfluxDB Exporter
+
+- name: Start and enable InfluxDB Exporter service
+  ansible.builtin.systemd:
+    name: influxdb_exporter
+    state: started
+    enabled: yes

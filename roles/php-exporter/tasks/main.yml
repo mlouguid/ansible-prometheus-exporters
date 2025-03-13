@@ -1,0 +1,28 @@
+- name: Create php-fpm_exporter user
+  user:
+    name: php-fpm_exporter
+    comment: "PHP FPM Exporter User"
+    shell: /bin/false
+    system: yes
+    create_home: no
+
+- name: Download php-fpm_exporter binary
+  get_url:
+    url: "{{ php_fpm_exporter_url }}"
+    dest: "/tmp/php-fpm_exporter_{{ php_fpm_exporter_version }}_linux_amd64"
+    mode: '0755'
+
+- name: Move php-fpm_exporter to /usr/local/bin
+  command: mv /tmp/php-fpm_exporter_{{ php_fpm_exporter_version }}_linux_amd64 {{ php_fpm_exporter_bin_path }}
+
+- name: Create systemd service for php-fpm_exporter
+  template:
+    src: php-fpm_exporter.service.j2
+    dest: /etc/systemd/system/php-fpm_exporter.service
+    mode: '0644'
+
+- name: Enable and start php-fpm_exporter service
+  systemd:
+    name: php-fpm_exporter
+    enabled: yes
+    state: started
