@@ -1,0 +1,11 @@
+---
+- name: Exporter playbook
+  hosts: all
+  roles:
+    - node-exporter
+    - nginx-exporter
+    - mysql-exporter
+    - logstash-exporter
+    - php-exporter
+    - elasticsearch-exporter
+    - influxdb-exporter
