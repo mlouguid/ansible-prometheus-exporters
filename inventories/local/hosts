@@ -6,8 +6,8 @@
           localhost:
             ansible_connection: local
             ansible_python_interpreter: /usr/bin/python3
-      vmware-ip:
+      example_ip:
         hosts:
-          x.x.x.0:
+          192.x.x.1:
             ansible_user: "root"
             ansible_python_interpreter: /usr/bin/python3
