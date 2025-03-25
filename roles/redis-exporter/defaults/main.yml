@@ -1,0 +1,5 @@
+redis_exporter_version: "1.56.0"
+redis_exporter_user: "redis_exporter"
+redis_exporter_group: "redis_exporter"
+redis_exporter_port: 9121
+redis_exporter_binary: "/usr/local/bin/redis_exporter"
