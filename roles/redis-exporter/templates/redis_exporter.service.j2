@@ -1,0 +1,12 @@
+[Unit]
+Description=Redis Exporter
+After=network.target
+
+[Service]
+User={{ redis_exporter_user }}
+Group={{ redis_exporter_group }}
+ExecStart={{ redis_exporter_binary }} --redis.addr=redis://localhost:6379
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
