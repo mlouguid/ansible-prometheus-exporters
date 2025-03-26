@@ -39,7 +39,7 @@ This repository contains an Ansible playbook to automate the installation and co
 
 Clone the repository:
 ```
-git clone https://github.com/your-repo/exporters-ansible.git
-cd exporters-ansible
+git clone https://github.com/ansible-prometheus-exporters.git
+cd ansible-prometheus-exporters
 ansible-playbook -i inventories/local/hosts exporters_playbook.yml
 ```
