@@ -3,14 +3,14 @@
 This repository contains an Ansible playbook to automate the installation and configuration of various Prometheus exporters on Linux servers.
 
 ## 🚀 Supported Exporters
-	•	Node Exporter (System metrics)
-	•	NGINX Exporter (NGINX metrics)
-	•	MySQL Exporter (MySQL/MariaDB metrics)
-	•	Logstash Exporter (Logstash performance metrics)
-	•	PHP Exporter (PHP-FPM metrics)
-	•	Elasticsearch Exporter (Elasticsearch cluster metrics)
-	•	InfluxDB Exporter (InfluxDB monitoring)
-	•	Redis Exporter (Redis database monitoring)
+	• Node Exporter (System metrics)
+	• NGINX Exporter (NGINX metrics)
+	• MySQL Exporter (MySQL/MariaDB metrics)
+	• Logstash Exporter (Logstash performance metrics)
+	• PHP Exporter (PHP-FPM metrics)
+	• Elasticsearch Exporter (Elasticsearch cluster metrics)
+	• InfluxDB Exporter (InfluxDB monitoring)
+	• Redis Exporter (Redis database monitoring)
 
 ## 📂 Directory Structure
 ```
@@ -31,15 +31,15 @@ This repository contains an Ansible playbook to automate the installation and co
 ```
 
 ## 🛠 Prerequisites
-	•	Install Ansible (pip install ansible)
-	•	SSH access to target servers
-	•	Sudo privileges on remote machines
+	• Install Ansible (pip install ansible)
+	• SSH access to target servers
+	• Sudo privileges on remote machines
  
 ## 🎯 Installation & Deployment
 
 Clone the repository:
 ```
-git clone https://github.com/ansible-prometheus-exporters.git
+git clone https://github.com/mlouguid/ansible-prometheus-exporters.git
 cd ansible-prometheus-exporters
 ansible-playbook -i inventories/local/hosts exporters_playbook.yml
 ```
