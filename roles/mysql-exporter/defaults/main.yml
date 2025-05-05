@@ -2,7 +2,7 @@ mysql_exporter_version: "0.14.0"
 mysql_exporter_download_url: "https://github.com/prometheus/mysqld_exporter/releases/download/v{{ mysql_exporter_version }}/mysqld_exporter-{{ mysql_exporter_version }}.linux-amd64.tar.gz"
 
 mysql_exporter_user: "exporter"
-mysql_exporter_password: "Adz@myexpo25"
+mysql_exporter_password: "myexpo25@pro"
 
 mysql_exporter_binary_path: "/usr/local/bin/mysqld_exporter"
 mysql_exporter_service_path: "/etc/systemd/system/mysqld_exporter.service"
